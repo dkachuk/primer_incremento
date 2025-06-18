@@ -5,8 +5,9 @@ services:
     image: rabbitmq:3.13.3-management-alpine
     container_name: sga_iot-broker
     ports:
-      - "5672:5672" # RabbitMQ default port
-      - "15672:15672" # RabbitMQ management UI
+      - 5672:5672 # RabbitMQ default port
+      - 15672:15672 # RabbitMQ management UI
+      - 1883:1883 # RabbitMQ MQTT port
     networks:
       sga_iot-network:
         ipv4_address: 190.0.100.10
@@ -21,8 +22,8 @@ services:
       - ORACLE_DISABLE_ASYNCH_IO=true
       - ORACLE_PWD="Ora1234"
     ports:
-      - "1521:1521" # Oracle default port
-      - "8080:8080" # Oracle Application Express (APEX)
+      - 1521:1521 # Oracle default port
+      - 8080:8080 # Oracle Application Express (APEX)
     networks:
       sga_iot-network:
         ipv4_address: 190.0.100.12
