@@ -10,6 +10,8 @@ services:
     networks:
       sga_iot-network:
         ipv4_address: 190.0.100.10
+    # Posterior a iniciar el contenedor, acceder al contendedor e instalar el plugin de RabbitMQ para MQTT
+    # rabbitmq-plugins enable rabbitmq_mqtt
 
   oracle-dash:
     image: container-registry.oracle.com/database/free:latest
