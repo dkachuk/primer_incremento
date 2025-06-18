@@ -2,7 +2,8 @@ name: sga_iot
 
 services:
   broker:
-    image: rabbitmq:3.13.3-management-alpine
+    build:
+        context: ../broker/.docker
     container_name: sga_iot-broker
     ports:
       - 5672:5672 # RabbitMQ default port
