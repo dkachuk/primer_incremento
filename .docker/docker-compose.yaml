@@ -1,0 +1,33 @@
+name: sga_iot
+
+services:
+  broker:
+    image: rabbitmq:3.13.3-management-alpine
+    container_name: sga_iot-broker
+    ports:
+      - "5672:5672" # RabbitMQ default port
+      - "15672:15672" # RabbitMQ management UI
+    networks:
+      sga_iot-network:
+        ipv4_address: 190.0.100.10
+
+  oracle-dash:
+    image: container-registry.oracle.com/database/free:latest
+    container_name: sga_iot-oracle-dash
+    environment:
+      - ORACLE_ALLOW_REMOTE=true
+      - ORACLE_DISABLE_ASYNCH_IO=true
+      - ORACLE_PWD="Ora1234"
+    ports:
+      - "1521:1521" # Oracle default port
+      - "8080:8080" # Oracle Application Express (APEX)
+    networks:
+      sga_iot-network:
+        ipv4_address: 190.0.100.12
+
+networks:
+  sga_iot-network:
+    name: sga_iot-network
+    ipam:
+      config:
+        - subnet: 190.0.100.0/24
