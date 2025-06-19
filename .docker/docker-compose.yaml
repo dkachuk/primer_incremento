@@ -19,12 +19,14 @@ services:
     image: container-registry.oracle.com/database/free:latest
     container_name: sga_iot-oracle-dash
     environment:
-      - ORACLE_ALLOW_REMOTE=true
-      - ORACLE_DISABLE_ASYNCH_IO=true
-      - ORACLE_PWD="Ora1234"
+      # - ORACLE_ALLOW_REMOTE=true
+      # - ORACLE_DISABLE_ASYNCH_IO=true
+      - ORACLE_PWD=Ora1234
+      - ORACLE_CHARACTERSET=AL32UTF8
     ports:
       - 1521:1521 # Oracle default port
-      - 8080:8080 # Oracle Application Express (APEX)
+    volumes:
+      - ../dashboard/data:/opt/oracle/oradata
     networks:
       sga_iot-network:
         ipv4_address: 190.0.100.12
