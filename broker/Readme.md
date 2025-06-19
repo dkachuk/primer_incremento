@@ -1,6 +1,4 @@
-Excelente pregunta. RabbitMQ con el **plugin MQTT** utiliza internamente un exchange de tipo `topic` llamado `amq.topic` para enrutar los mensajes MQTT. No necesitás crear manualmente un "topic" como en otros brokers, pero sí podés verificar y **configurar bindings** para garantizar el correcto enrutamiento.
-
-A continuación te explico **cómo configurar RabbitMQ desde el panel web** para que tu backend que publica al topic `sga_iot` funcione correctamente:
+# Cómo configurar RabbitMQ desde el panel web para que tu backend que publica al topic `sga_iot` funcione correctamente:
 
 ---
 
@@ -74,7 +72,3 @@ Tu aplicación **ya está lista para publicar al topic `sga_iot` sin necesidad d
 
 * Si querés monitorear los mensajes, creá manualmente una cola + binding desde la UI.
 * Las colas se crean automáticamente si hay suscriptores MQTT conectados.
-
----
-
-¿Querés que te prepare una clase Java `MqttPublisherService` o `MqttConsumerService` que use estos valores para que puedas probar el flujo completo?
