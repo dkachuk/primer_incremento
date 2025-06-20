@@ -39,9 +39,9 @@ public class HealthController {
         // Por ahora, retornamos un mensaje de ejemplo como placeholder
         MqttPublisher mqttPublisher = new MqttPublisher("sga_iot", "backend-sga-pub", "guest", "guest");
         try {
-            mqttPublisher.establecerConexion("tcp://190.0.100.10:1883", "Publicador");
+            mqttPublisher.establecerConexion("tcp://190.0.100.10:1883");
             mqttPublisher.publicarMensaje("{\"temp\":"+ (new Random()).nextInt(100) + 1+".6}");
-            mqttPublisher.desconectar("Publicador");
+            mqttPublisher.desconectar();
             
         } catch (MqttException e) {
             System.err.println("Error al publicar mensaje: " + e.getMessage());

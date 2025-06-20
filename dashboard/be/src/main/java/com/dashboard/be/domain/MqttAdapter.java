@@ -70,7 +70,7 @@ public class MqttAdapter {
         this.client = client;
     }
 
-    public boolean establecerConexion(String urlConexion, String fromClass) throws MqttException {
+    public boolean establecerConexion(String urlConexion) throws MqttException {
         // Aquí se implementaría la lógica para establecer la conexión MQTT
         MqttConnectOptions options = new MqttConnectOptions();
         options.setCleanSession(true);
@@ -80,23 +80,23 @@ public class MqttAdapter {
         this.client = new MqttClient(urlConexion, this.clientId);
         try {
             this.client.connect(options);
-            System.out.println(fromClass + ": Conexión establecida con el broker MQTT.");
+            System.out.println("Conexión establecida con el broker MQTT.");
             return true;
         } catch (MqttException e) {
-            System.err.println(fromClass + ": Error al conectar al broker MQTT: " + e.getMessage());
+            System.err.println("Error al conectar al broker MQTT: " + e.getMessage());
             return false;
         }
     }
 
-    public boolean desconectar(String fromClass) throws MqttException {
+    public boolean desconectar() throws MqttException {
         // Aquí se implementaría la lógica para desconectar del broker MQTT
         if (this.client != null && this.client.isConnected()) {
             try {
                 this.client.disconnect();
-                System.out.println(fromClass + ": Desconexión exitosa del broker MQTT.");
+                System.out.println("Desconexión exitosa del broker MQTT.");
                 return true;
             } catch (MqttException e) {
-                System.err.println(fromClass + ": Error al desconectar del broker MQTT: " + e.getMessage());
+                System.err.println("Error al desconectar del broker MQTT: " + e.getMessage());
             }
         }
         return false;

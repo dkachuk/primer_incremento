@@ -20,7 +20,7 @@ public class MqttConsumerRunner implements ApplicationRunner {
                     "guest"
                 );
 
-                consumer.establecerConexion("tcp://190.0.100.10:1883", "Consumer Runner");
+                consumer.establecerConexion("tcp://190.0.100.10:1883");
                 consumer.obtenerMensaje();
 
                 // Mantener hilo activo
