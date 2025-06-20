@@ -3,7 +3,7 @@ name: sga_iot
 services:
   broker:
     build:
-        context: ../broker/.docker
+      context: ../broker/.docker
     container_name: sga_iot-broker
     ports:
       - 5672:5672 # RabbitMQ default port
@@ -30,6 +30,19 @@ services:
     networks:
       sga_iot-network:
         ipv4_address: 190.0.100.12
+
+  dashboard-be:
+    build:
+      context: ../dashboard/be
+      dockerfile: .docker/Dockerfile
+    container_name: sga_iot-dashboard_be
+    ports:
+      - 8080:8080 # Dashboard backend port
+    depends_on:
+      - oracle-dash
+    networks:
+      sga_iot-network:
+        ipv4_address: 190.0.100.21
 
 networks:
   sga_iot-network:

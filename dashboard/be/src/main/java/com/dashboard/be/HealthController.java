@@ -1,7 +1,9 @@
 package com.dashboard.be;
 
 import java.util.List;
+import java.util.Random;
 
+import org.eclipse.paho.client.mqttv3.MqttException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -32,16 +34,16 @@ public class HealthController {
     }
     
     @RequestMapping("/broker")
-    public String broker() throws Exception {
+    public String broker() throws MqttException {
         // Aquí se implementaría la lógica para verificar el estado del broker MQTT
         // Por ahora, retornamos un mensaje de ejemplo como placeholder
         MqttPublisher mqttPublisher = new MqttPublisher("sga_iot", "backend-sga-pub", "guest", "guest");
         try {
-            mqttPublisher.establecerConexion("tcp://localhost:1883", "Publicador");
-            mqttPublisher.publicarMensaje("{\"temp\":25.6}");
+            mqttPublisher.establecerConexion("tcp://190.0.100.10:1883", "Publicador");
+            mqttPublisher.publicarMensaje("{\"temp\":"+ (new Random()).nextInt(100) + 1+".6}");
             mqttPublisher.desconectar("Publicador");
             
-        } catch (Exception e) {
+        } catch (MqttException e) {
             System.err.println("Error al publicar mensaje: " + e.getMessage());
         }
 

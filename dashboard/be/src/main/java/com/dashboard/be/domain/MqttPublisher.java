@@ -14,7 +14,7 @@ public class MqttPublisher extends MqttAdapter {
         // Aquí se implementaría la lógica para publicar el mensaje en el broker MQTT
         
         MqttMessage mqttMessage = new MqttMessage(mensaje.getBytes());
-        mqttMessage.setQos(0); // Establecer QoS a 0 (exactamente una vez)
+        mqttMessage.setQos(1); // Establecer QoS a 0 (exactamente una vez)
         // mqttMessage.setQos(1); // Establecer QoS a 1 (al menos una vez)
 
         try {
