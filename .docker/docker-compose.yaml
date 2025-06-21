@@ -17,10 +17,8 @@ services:
 
   oracle-dash:
     image: container-registry.oracle.com/database/free:latest
-    container_name: sga_iot-oracle-dash
+    container_name: sga_iot-oracle_dash
     environment:
-      # - ORACLE_ALLOW_REMOTE=true
-      # - ORACLE_DISABLE_ASYNCH_IO=true
       - ORACLE_PWD=Ora1234
       - ORACLE_CHARACTERSET=AL32UTF8
     ports:
@@ -31,13 +29,24 @@ services:
       sga_iot-network:
         ipv4_address: 190.0.100.12
 
+  servient-ms:
+    build:
+      context: ../servient/ms
+      dockerfile: .docker/Dockerfile
+    container_name: sga_iot-servient_ms
+    ports:
+      - 8484:8484 # Servient port
+    networks:
+      sga_iot-network:
+        ipv4_address: 190.0.100.31
+
   dashboard-be:
     build:
       context: ../dashboard/be
       dockerfile: .docker/Dockerfile
     container_name: sga_iot-dashboard_be
     ports:
-      - 8585:8080 # Dashboard backend port
+      - 8585:8585 # Dashboard backend port
     depends_on:
       - oracle-dash
     networks:
