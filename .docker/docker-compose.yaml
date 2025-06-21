@@ -37,7 +37,7 @@ services:
       dockerfile: .docker/Dockerfile
     container_name: sga_iot-dashboard_be
     ports:
-      - 8080:8080 # Dashboard backend port
+      - 8585:8080 # Dashboard backend port
     depends_on:
       - oracle-dash
     networks:

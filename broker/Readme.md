@@ -1,3 +1,22 @@
+# Usuarios y Contraseñas
+Configuración de Usuarios para la conexión con el broker
+
+## Servient
+`user: servient`
+`pass: servient`
+`type: management`
+`permission: Virtual Host /`
+`Exchange: amq.topic`
+
+## Dashboard
+`user: dashboard`
+`pass: dashboard`
+`type: management`
+`permission: Virtual Host /`
+`Exchange: amq.topic`
+
+---
+
 # Cómo configurar RabbitMQ desde el panel web para que tu backend que publica al topic `sga_iot` funcione correctamente:
 
 ---
