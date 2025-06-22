@@ -1,5 +1,7 @@
 package com.dashboard.be.domain.mqtt;
 
+import java.nio.charset.StandardCharsets;
+
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 public class MqttPublisher extends MqttAdapter {
@@ -17,7 +19,7 @@ public class MqttPublisher extends MqttAdapter {
     }
 
     public void publish(String payload) throws Exception {
-        MqttMessage message = new MqttMessage(payload.getBytes());
+        MqttMessage message = new MqttMessage(payload.getBytes(StandardCharsets.UTF_8));
         message.setQos(1);
         client.publish(this.topic, message);
         System.out.println("[BACKEND] Mensaje publicado en el topic " + this.topic);

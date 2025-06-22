@@ -1,8 +1,13 @@
 package com.dashboard.be.domain.mqtt;
 
+import java.nio.charset.StandardCharsets;
+
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
+
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class MqttConsumer extends MqttAdapter {
 
@@ -24,7 +29,17 @@ public class MqttConsumer extends MqttAdapter {
             @Override
             public void messageArrived(String topic, MqttMessage message) {
                 // Aquí se enlaza con la lógica de nuestro sistema
-                System.out.println("[BACKEND] Mensaje recibido en [" + topic + "]: " + new String(message.getPayload()));
+                String payload = new String(message.getPayload(), StandardCharsets.UTF_8);
+                System.out.println("[BACKEND] Mensaje recibido en [" + topic + "]: " + payload);
+
+                try {
+                    ObjectMapper mapper = new ObjectMapper();
+                    JsonNode json_data = mapper.readTree(payload);
+
+                    System.err.println("[BACKEND] JSON DATA: " + json_data.asText());
+                } catch (Exception e) {
+                    System.err.println("[BACKEND] Error al procesaro JSON: " + e.getMessage());
+                }
             }
 
             @Override

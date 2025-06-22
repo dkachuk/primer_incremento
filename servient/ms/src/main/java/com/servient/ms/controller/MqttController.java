@@ -1,10 +1,13 @@
 package com.servient.ms.controller;
 
+import java.util.Map;
+
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.servient.ms.domain.mqtt.MqttPublisher;
 
 @RestController
@@ -18,9 +21,10 @@ public class MqttController {
     }
 
     @PostMapping("/send")
-    public String sendMessage(@RequestParam String message) {
+    public String sendMessage(@RequestBody Map<String, Object> message) {
         try {
-            publisher.publish(message);
+            String json_msg = new ObjectMapper().writeValueAsString(message);
+            publisher.publish(json_msg);
             return "[SERVIENT] Mensaje publicado correctamente.";
         } catch (Exception e) {
             return "[SERVIENT] Error: " + e.getMessage();
