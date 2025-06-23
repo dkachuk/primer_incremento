@@ -40,6 +40,17 @@ services:
       sga_iot-network:
         ipv4_address: 190.0.100.31
 
+  dashboard-fe:
+    build:
+      context: ../dashboard/fe
+      dockerfile: .docker/Dockerfile
+    container_name: sga_iot-dashboard_fe
+    ports:
+      - 8080:80 # Dashboard fontend port
+    networks:
+      sga_iot-network:
+        ipv4_address: 190.0.100.20
+  
   dashboard-be:
     build:
       context: ../dashboard/be

@@ -1,15 +1,28 @@
-# Etapa de construcción
-FROM node:20 AS build
+# Etapa 1: build del frontend
+FROM node:18 AS build
+
 WORKDIR /app
+
 COPY package*.json ./
 RUN npm install
+
 COPY . .
 RUN npm run build
 
-# Etapa de producción
-FROM nginx:alpine
+# Etapa 2: servir con Nginx
+FROM nginx:stable-alpine
+
+# Elimina el contenido por defecto de Nginx
+RUN rm -rf /usr/share/nginx/html/*
+
+# Copia la build del paso anterior
 COPY --from=build /app/build /usr/share/nginx/html
+
+# Opcional: reemplaza config default de Nginx si necesitás modificarlo
+# COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Expone el puerto 80
 EXPOSE 80
 
-
-# También podés usar vite en lugar de create-react-app, pero el enfoque es igual.
+# Comando por defecto
+CMD ["nginx", "-g", "daemon off;"]

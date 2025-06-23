@@ -1,0 +1,35 @@
+body {
+  margin: 0;
+  font-family: sans-serif;
+}
+
+button {
+  background-color: #2e7d32;
+  color: white;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #1b5e20;
+}
+
+.context-menu {
+  position: absolute;
+  z-index: 999;
+  background: white;
+  border: 1px solid #ccc;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  min-width: 160px;
+}
+
+.context-menu div {
+  padding: 0.6rem;
+  cursor: pointer;
+}
+
+.context-menu div:hover {
+  background-color: #f5f5f5;
+}
