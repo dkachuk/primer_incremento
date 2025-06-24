@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 import com.dashboard.be.domain.mqtt.MqttConsumer;
 import com.dashboard.be.domain.mqtt.MqttPublisher;
+import com.dashboard.be.event.WebSocketEventPublisher;
+import com.dashboard.be.repository.CosaRepository;
 
 @Configuration
 public class MqttAdapterConfig {
@@ -26,10 +28,10 @@ public class MqttAdapterConfig {
     protected String topic_StoD;
 
     @Bean
-    public MqttConsumer mqttConsumer()  {
+    public MqttConsumer mqttConsumer(CosaRepository cosaRepository, WebSocketEventPublisher wse_publisher) {
         System.out.println("[BACKEND] Creando bean MqttConsumer");
         try {
-            MqttConsumer consumer = new MqttConsumer(this.brokerUrl, this.clientId_StoD, this.username, this.password, this.topic_StoD);
+            MqttConsumer consumer = new MqttConsumer(this.brokerUrl, this.clientId_StoD, this.username, this.password, this.topic_StoD, cosaRepository, wse_publisher);
             consumer.configure();
             return consumer;
         } catch (Exception e) {

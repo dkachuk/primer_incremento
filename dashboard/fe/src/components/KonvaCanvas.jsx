@@ -27,7 +27,7 @@ const KonvaCanvas = ({ environments, plantillas, addComponent, toggleComponent, 
       return nuevoValor !== null ? { ...attr, valor: nuevoValor } : attr;
     });
 
-    fetch(`http://190.0.100.21:8585/api/ambientes/${envId}/componentes/${comp.id}/dinamico`, {
+    fetch(`http://localhost:8585/api/ambientes/${envId}/componentes/${comp.id}/dinamico`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ atributos: nuevosAtributos })

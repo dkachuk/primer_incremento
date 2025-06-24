@@ -36,6 +36,8 @@ services:
     container_name: sga_iot-servient_ms
     ports:
       - 8484:8484 # Servient port
+    depends_on:
+      - broker
     networks:
       sga_iot-network:
         ipv4_address: 190.0.100.31
@@ -50,7 +52,7 @@ services:
     networks:
       sga_iot-network:
         ipv4_address: 190.0.100.20
-  
+
   dashboard-be:
     build:
       context: ../dashboard/be
@@ -60,6 +62,7 @@ services:
       - 8585:8585 # Dashboard backend port
     depends_on:
       - oracle-dash
+      - broker
     networks:
       sga_iot-network:
         ipv4_address: 190.0.100.21

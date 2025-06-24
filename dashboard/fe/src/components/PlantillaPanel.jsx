@@ -7,7 +7,7 @@ const PlantillaPanel = () => {
   const [plantillasExistentes, setPlantillasExistentes] = useState([]);
 
   useEffect(() => {
-    fetch('http://190.0.100.21:8585/api/plantillas')
+    fetch('http://localhost:8585/api/plantillas')
       .then(res => res.json())
       .then(data => {
         if (Array.isArray(data)) {
@@ -44,7 +44,7 @@ const PlantillaPanel = () => {
       atributos
     };
 
-    fetch('http://190.0.100.21:8585/api/plantillas', {
+    fetch('http://localhost:8585/api/plantillas', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(nueva)

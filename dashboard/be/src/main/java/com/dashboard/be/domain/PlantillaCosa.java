@@ -13,47 +13,36 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 
 @Entity
-public class Ambiente {
+public class PlantillaCosa {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String nombre;
 
-    @OneToMany(mappedBy = "ambiente", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "plantilla", cascade = CascadeType.ALL)
     @JsonManagedReference
-    private List<Cosa> cosas = new ArrayList<>();
+    private List<PlantillaAtributo> atributos = new ArrayList<>();
 
-    public Ambiente() {
-    }
-
-    public Ambiente(String name) {
-        this.name = name;
-    }
     // Getters y setters
-
     public Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public String getNombre() {
+        return nombre;
     }
 
-    public String getName() {
-        return name;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public List<PlantillaAtributo> getAtributos() {
+        return atributos;
     }
 
-    public List<Cosa> getCosas() {
-        return this.cosas;
-    }
-
-    public void setCosas(List<Cosa> cosas) {
-        this.cosas = cosas;
+    public void setAtributos(List<PlantillaAtributo> atributos) {
+        this.atributos = atributos;
     }
 }

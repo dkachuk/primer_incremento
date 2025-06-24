@@ -7,7 +7,7 @@ export const useSGAState = () => {
   const [plantillas, setPlantillas] = useState([]);
 
   useEffect(() => {
-    fetch('http://190.0.100.21:8585/api/ambientes')
+    fetch('http://localhost:8585/api/ambientes')
       .then(res => res.json())
       .then(data => {
         const adaptados = data.map(a => ({
@@ -21,14 +21,14 @@ export const useSGAState = () => {
   }, []);
 
   useEffect(() => {
-    fetch('http://190.0.100.21:8585/api/plantillas')
+    fetch('http://localhost:8585/api/plantillas')
       .then(res => res.json())
       .then(data => setPlantillas(data))
       .catch(err => console.error('Error al cargar plantillas', err));
   }, []);
 
   useEffect(() => {
-    const socket = new SockJS('http://190.0.100.21:8585/ws');
+    const socket = new SockJS('/ws');
     const stompClient = new Client({
       webSocketFactory: () => socket,
       onConnect: () => {
@@ -62,7 +62,7 @@ export const useSGAState = () => {
   const addEnvironment = (name) => {
     const nuevo = { name };
 
-    fetch('http://190.0.100.21:8585/api/ambientes', {
+    fetch('http://localhost:8585/api/ambientes', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(nuevo)
@@ -85,7 +85,7 @@ export const useSGAState = () => {
       temperature: type === 'Aire' ? 24 : null
     };
 
-    fetch(`http://190.0.100.21:8585/api/ambientes/${envId}/componentes`, {
+    fetch(`http://localhost:8585/api/ambientes/${envId}/componentes`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(nuevo)
@@ -130,7 +130,7 @@ export const useSGAState = () => {
       )
     );
 
-    fetch(`http://190.0.100.21:8585/api/ambientes/${envId}/componentes/${compId}`, {
+    fetch(`http://localhost:8585/api/ambientes/${envId}/componentes/${compId}`, {
       method: 'PATCH',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ state: nuevoEstado })
