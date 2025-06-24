@@ -1,6 +1,7 @@
 package com.dashboard.be.domain.mqtt;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Iterator;
 
 import org.eclipse.paho.client.mqttv3.IMqttDeliveryToken;
 import org.eclipse.paho.client.mqttv3.MqttCallback;
@@ -46,11 +47,24 @@ public class MqttConsumer extends MqttAdapter {
             @Override
             public void messageArrived(String topic, MqttMessage message) {
                 // Aquí se enlaza con la lógica de nuestro sistema
-                String payload = new String(message.getPayload(), StandardCharsets.UTF_8);
+                String payload = new String(message.getPayload(), StandardCharsets.UTF_8).trim();
                 System.out.println("[BACKEND] Mensaje recibido en [" + topic + "]: " + payload);
 
                 try {
+                    // JsonNode json_data = objectMapper.readTree(payload);
                     JsonNode json_data = objectMapper.readTree(payload);
+                    if (json_data.isTextual()) {
+                        json_data = objectMapper.readTree(json_data.asText());
+                    }
+                    Iterator<String> fieldNames = json_data.fieldNames();
+                    while (fieldNames.hasNext()) {
+                        String nombreCampo = fieldNames.next();
+                        JsonNode valor = json_data.get(nombreCampo);
+                        System.out.println("Campo: " + nombreCampo + " → Valor:" + valor);
+                    }
+
+                    System.out.println("→ json node type: " + json_data.getNodeType());
+                    System.out.println("→ json.toPrettyString():\n" + json_data.toPrettyString());
 
                     if (json_data.has("evento") && "estado-reportado".equals(json_data.get("evento").asText())) {
                         Long cosaId = json_data.get("cosaId").asLong();
